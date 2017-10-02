@@ -1,3 +1,5 @@
+var app = angular.module('app',[]);
+
 app.service('TaskCRUDService', ['$http', function ($http) {
 
     this.getTask = function getTask(taskId) {
@@ -45,8 +47,8 @@ app.service('TaskCRUDService', ['$http', function ($http) {
 
 }]);
 
-app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService',
-    function ($scope, TaskCRUDService) {
+app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService', function ($scope, TaskCRUDService) {
+
         $scope.getTask = function () {
             var id = $scope.task.id;
             TaskCRUDService.getTask($scope.task.id)
@@ -68,7 +70,6 @@ app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService',
                     }
                 );
         };
-    },
 
     $scope.addTask = function () {
         if ($scope.task != null && $scope.task.title) {
@@ -88,7 +89,7 @@ app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService',
             $scope.message = '';
             $scope.errorMessage = 'Please enter a title!';
         }
-    },
+    }
 
     $scope.updateTask = function () {
         TaskCRUDService.updateTask($scope.task.id, $scope.task.title, $scope.task.description)
@@ -102,7 +103,7 @@ app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService',
                     $scope.errorMessage = 'Error updating task!';
                 }
             );
-    },
+    }
 
     $scope.deleteTask = function () {
         TaskCRUDService.deleteTask($scope.task.id)
@@ -117,8 +118,8 @@ app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService',
                     $scope.errorMessage = 'Error deleting task!';
                 }
             )
-    },
-    
+    }
+
     $scope.getAllTasks = function () {
         TaskCRUDService.getAllTasks()
             .then(
@@ -135,4 +136,4 @@ app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService',
             )
     }
 
-]);
+}]);
