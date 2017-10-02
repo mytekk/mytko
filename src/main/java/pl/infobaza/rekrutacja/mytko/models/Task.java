@@ -29,9 +29,15 @@ public class Task {
     private String description;
 
     @Column
-    private Boolean status;
+    private Boolean completed;
 
     public Task() {
+    }
+
+    public Task(String title, String description) {
+        this.title = title;
+        this.description = description;
+        this.completed = false;
     }
 
     public Long getId() {
@@ -58,11 +64,11 @@ public class Task {
         this.description = description;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getCompleted() {
+        return completed;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 }

@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface JpaTaskRepository extends PagingAndSortingRepository<Task, Long> {
 
-    List<Task> findByStatus(@Param("status") Boolean status);
+    List<Task> findByCompleted(@Param("completed") Boolean completed);
 
 }
