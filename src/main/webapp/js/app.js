@@ -1,4 +1,4 @@
-var app = angular.module('app',[]);
+var app = angular.module('app', []);
 
 app.service('TaskCRUDService', ['$http', function ($http) {
 
@@ -47,29 +47,29 @@ app.service('TaskCRUDService', ['$http', function ($http) {
 
 }]);
 
-app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService', function ($scope, TaskCRUDService) {
+app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService', '$window', function ($scope, TaskCRUDService, $window) {
 
-        $scope.getTask = function () {
-            var id = $scope.task.id;
-            TaskCRUDService.getTask($scope.task.id)
-                .then(
-                    function success(response) {
-                        $scope.task = response.data;
-                        $scope.task.id = id;
-                        $scope.message = '';
-                        $scope.errorMessage = '';
-                    },
-                    function error(response) {
-                        $scope.message = '';
-                        if (response.status === 404) {
-                            $scope.errorMessage = 'Task not found!';
-                        }
-                        else {
-                            $scope.errorMessage = "Error getting task!";
-                        }
+    $scope.getTask = function () {
+        var id = $scope.task.id;
+        TaskCRUDService.getTask($scope.task.id)
+            .then(
+                function success(response) {
+                    $scope.task = response.data;
+                    $scope.task.id = id;
+                    $scope.message = '';
+                    $scope.errorMessage = '';
+                },
+                function error(response) {
+                    $scope.message = '';
+                    if (response.status === 404) {
+                        $scope.errorMessage = 'Task not found!';
                     }
-                );
-        };
+                    else {
+                        $scope.errorMessage = "Error getting task!";
+                    }
+                }
+            );
+    };
 
     $scope.addTask = function () {
         if ($scope.task != null && $scope.task.title) {
@@ -89,6 +89,7 @@ app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService', function ($scope, T
             $scope.message = '';
             $scope.errorMessage = 'Please enter a title!';
         }
+        $window.location.reload();
     }
 
     $scope.updateTask = function () {
@@ -103,6 +104,7 @@ app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService', function ($scope, T
                     $scope.errorMessage = 'Error updating task!';
                 }
             );
+        $window.location.reload();
     }
 
     $scope.deleteTask = function () {
@@ -118,6 +120,7 @@ app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService', function ($scope, T
                     $scope.errorMessage = 'Error deleting task!';
                 }
             )
+        $window.location.reload();
     }
 
     $scope.getAllTasks = function () {
