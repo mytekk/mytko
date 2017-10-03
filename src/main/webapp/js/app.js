@@ -20,13 +20,14 @@ app.service('TaskCRUDService', ['$http', function ($http) {
         });
     }
 
-    this.updateTask = function updateTask(id, title, description) {
+    this.updateTask = function updateTask(id, title, description, completed) {
         return $http({
             method: 'PATCH',
             url: 'tasks/' + id,
             data: {
                 title: title,
-                description: description
+                description: description,
+                completed: completed
             }
         });
     }
@@ -93,7 +94,7 @@ app.controller('TaskCRUDCtrl', ['$scope', 'TaskCRUDService', '$window', function
     }
 
     $scope.updateTask = function () {
-        TaskCRUDService.updateTask($scope.task.id, $scope.task.title, $scope.task.description)
+        TaskCRUDService.updateTask($scope.task.id, $scope.task.title, $scope.task.description, $scope.task.completed)
             .then(
                 function success(response) {
                     $scope.message = 'Task updated!';
